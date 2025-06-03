@@ -4,7 +4,9 @@ CREATE TABLE studenti (
   nume VARCHAR2(100) NOT NULL,
   prenume VARCHAR2(100) NOT NULL,
   grupa VARCHAR2(10),
-  email VARCHAR2(100)
+  email VARCHAR2(100),
+  username VARCHAR2(50) UNIQUE NOT NULL,
+  password VARCHAR2(100) NOT NULL
 );
 
 -- PROFESORI
@@ -12,7 +14,9 @@ CREATE TABLE profesori (
   id_profesor NUMBER PRIMARY KEY,
   nume VARCHAR2(100) NOT NULL,
   prenume VARCHAR2(100) NOT NULL,
-  email VARCHAR2(100)
+  email VARCHAR2(100),
+  username VARCHAR2(50) UNIQUE NOT NULL,
+  password VARCHAR2(100) NOT NULL
 );
 
 -- MATERII

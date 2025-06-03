@@ -1,21 +1,54 @@
--- === PROFESORI ===
-INSERT INTO profesori (nume, prenume, email) VALUES ('Ionescu', 'Mihai', 'mihai.ionescu@facultate.ro');
-INSERT INTO profesori (nume, prenume, email) VALUES ('Popa', 'Elena', 'elena.popa@facultate.ro');
-INSERT INTO profesori (nume, prenume, email) VALUES ('Vasilescu', 'Dan', 'dan.vasilescu@facultate.ro');
+BEGIN
+  -- Populare profesori (10)
+  FOR i IN 1..10 LOOP
+    INSERT INTO profesori (id_profesor, nume, prenume, email, username, password)
+    VALUES (
+      i,
+      'NumeProf' || i,
+      'PrenumeProf' || i,
+      'prof' || i || '@univ.ro',
+      'profuser' || i,
+      'pass' || i
+    );
+  END LOOP;
 
--- === MATERII ===
-INSERT INTO materii (nume_materie, id_profesor) VALUES ('Programare Java', 1);
-INSERT INTO materii (nume_materie, id_profesor) VALUES ('Baze de date', 2);
-INSERT INTO materii (nume_materie, id_profesor) VALUES ('Algoritmi', 3);
+  -- Populare materii (20) cu credite random intre 3 si 6
+  FOR i IN 1..20 LOOP
+    INSERT INTO materii (id_materie, nume_materie, id_profesor, credite)
+    VALUES (
+      i,
+      'Materie' || i,
+      MOD(i,10) + 1,  -- alocam profesor circular (1-10)
+      DBMS_RANDOM.VALUE(3,6)
+    );
+  END LOOP;
 
--- === STUDENTI ===
-INSERT INTO studenti (nume, prenume, grupa, email) VALUES ('Georgescu', 'Andrei', '302A', 'andrei.georgescu@student.ro');
-INSERT INTO studenti (nume, prenume, grupa, email) VALUES ('Marin', 'Ioana', '302A', 'ioana.marin@student.ro');
-INSERT INTO studenti (nume, prenume, grupa, email) VALUES ('Dumitrescu', 'Paul', '302B', 'paul.dumitrescu@student.ro');
+  -- Populare studenti (100)
+  FOR i IN 1..100 LOOP
+    INSERT INTO studenti (id_student, nume, prenume, grupa, email, username, password)
+    VALUES (
+      i,
+      'NumeStud' || i,
+      'PrenumeStud' || i,
+      'Grupa' || MOD(i,5)+1,
+      'student' || i || '@univ.ro',
+      'user' || i,
+      'pass' || i
+    );
+  END LOOP;
 
--- === NOTE ===
-INSERT INTO note (id_student, id_materie, valoare) VALUES (1, 1, 9.5); -- Andrei - Java
-INSERT INTO note (id_student, id_materie, valoare) VALUES (1, 2, 8.0); -- Andrei - BD
-INSERT INTO note (id_student, id_materie, valoare) VALUES (2, 2, 10.0); -- Ioana - BD
-INSERT INTO note (id_student, id_materie, valoare) VALUES (2, 3, 9.0); -- Ioana - Algoritmi
-INSERT INTO note (id_student, id_materie, valoare) VALUES (3, 1, 7.5); -- Paul - Java
+  -- Populare note (aprox 500 note)
+  FOR i IN 1..500 LOOP
+    INSERT INTO note (id_nota, id_student, id_materie, valoare, data_nota)
+    VALUES (
+      i,
+      MOD(i,100) + 1,   -- id_student intre 1 si 100
+      MOD(i,20) + 1,    -- id_materie intre 1 si 20
+      ROUND(DBMS_RANDOM.VALUE(5,10),1),  -- nota intre 5.0 si 10.0
+      ADD_MONTHS(SYSDATE, -MOD(i,12))    -- data in ultimul an, distribuita pe luni
+    );
+  END LOOP;
+
+  COMMIT;
+END;
+/

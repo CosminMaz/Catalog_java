@@ -1,17 +1,22 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        try {
+            // Load Oracle JDBC Driver
+            Class.forName("oracle.jdbc.driver.OracleDriver");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+            // Set look and feel to system default
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+            // Start the LoginRegisterUI on the Event Dispatch Thread
+            SwingUtilities.invokeLater(() -> new LoginRegisterUI());
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Oracle JDBC Driver not found: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (UnsupportedLookAndFeelException | InstantiationException | IllegalAccessException e) {
+            JOptionPane.showMessageDialog(null, "Look and Feel error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
