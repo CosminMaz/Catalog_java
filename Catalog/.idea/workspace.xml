@@ -5,9 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5729ab85-b24d-4219-b6e5-3dd94ce86792" name="Changes" comment="scripts + fisiere necesare proiectului">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DashboardUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DashboardUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DatabaseConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/LoginRegisterUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/LoginRegisterUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +81,7 @@
       <workItem from="1748954692194" duration="2819000" />
       <workItem from="1748957630275" duration="901000" />
       <workItem from="1748958552374" duration="4525000" />
-      <workItem from="1749021712199" duration="8066000" />
+      <workItem from="1749021712199" duration="8436000" />
     </task>
     <servers />
   </component>

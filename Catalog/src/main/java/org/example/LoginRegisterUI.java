@@ -22,6 +22,21 @@ public class LoginRegisterUI extends JFrame {
         tabbedPane.add("Register", createRegisterPanel());
 
         add(tabbedPane, BorderLayout.CENTER);
+
+        // Add Admin Panel button
+        JButton adminButton = new JButton("Admin Panel");
+        adminButton.setBackground(new Color(108, 117, 125)); // Gray color
+        adminButton.setForeground(Color.WHITE);
+        adminButton.setFocusPainted(false);
+        adminButton.addActionListener(e -> {
+            new AdminUI();
+            dispose();
+        });
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(adminButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+
         getContentPane().setBackground(new Color(245, 245, 245));
         setVisible(true);
     }
