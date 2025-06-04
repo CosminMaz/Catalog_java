@@ -4,7 +4,6 @@ DECLARE
     v_trigger_exists NUMBER;
     v_procedure_exists NUMBER;
 BEGIN
-    -- Drop tables if they exist
     FOR t IN (SELECT table_name FROM user_tables WHERE table_name IN ('NOTA', 'MATERII', 'STUDENTI', 'PROFESORI')) LOOP
         BEGIN
             EXECUTE IMMEDIATE 'DROP TABLE ' || t.table_name || ' CASCADE CONSTRAINTS';
@@ -15,7 +14,6 @@ BEGIN
         END;
     END LOOP;
 
-    -- Drop sequences if they exist
     FOR s IN (SELECT sequence_name FROM user_sequences WHERE sequence_name IN ('STUDENTI_SEQ', 'PROFESORI_SEQ', 'NOTE_SEQ', 'MATERII_SEQ')) LOOP
         BEGIN
             EXECUTE IMMEDIATE 'DROP SEQUENCE ' || s.sequence_name;
@@ -26,7 +24,6 @@ BEGIN
         END;
     END LOOP;
 
-    -- Drop procedures if they exist
     FOR p IN (SELECT object_name FROM user_procedures WHERE object_type = 'PROCEDURE' AND object_name IN ('ADD_STUDENT', 'ADD_PROFESSOR', 'ADD_SUBJECT')) LOOP
         BEGIN
             EXECUTE IMMEDIATE 'DROP PROCEDURE ' || p.object_name;
@@ -37,7 +34,6 @@ BEGIN
         END;
     END LOOP;
 
-    -- Drop triggers if they exist
     FOR tr IN (SELECT trigger_name FROM user_triggers WHERE trigger_name IN ('STUDENTI_BI', 'PROFESORI_BI', 'NOTE_BI', 'MATERII_BI')) LOOP
         BEGIN
             EXECUTE IMMEDIATE 'DROP TRIGGER ' || tr.trigger_name;
@@ -48,7 +44,6 @@ BEGIN
         END;
     END LOOP;
 
-    -- Verify cleanup
     SELECT COUNT(*) INTO v_table_exists
     FROM user_tables 
     WHERE table_name IN ('NOTA', 'MATERII', 'STUDENTI', 'PROFESORI');
