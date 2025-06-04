@@ -6,14 +6,8 @@ import java.awt.*;
 public class LoginRegisterUI extends JFrame {
     private JTextField loginUsernameField;
     private JPasswordField loginPasswordField;
-
-    private JTextField regNumeField;
-    private JTextField regPrenumeField;
-    private JTextField regEmailField;
-    private JTextField regGrupaField;
     private JTextField regUsernameField;
     private JPasswordField regPasswordField;
-
     private JComboBox<String> userTypeBox;
 
     public LoginRegisterUI() {
@@ -98,33 +92,6 @@ public class LoginRegisterUI extends JFrame {
 
         gbc.gridwidth = 1;
 
-        gbc.gridy++;
-        panel.add(new JLabel("Nume:"), gbc);
-        gbc.gridx = 1;
-        regNumeField = new JTextField(15);
-        panel.add(regNumeField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy++;
-        panel.add(new JLabel("Prenume:"), gbc);
-        gbc.gridx = 1;
-        regPrenumeField = new JTextField(15);
-        panel.add(regPrenumeField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy++;
-        panel.add(new JLabel("Email:"), gbc);
-        gbc.gridx = 1;
-        regEmailField = new JTextField(15);
-        panel.add(regEmailField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy++;
-        panel.add(new JLabel("Grupa (doar student):"), gbc);
-        gbc.gridx = 1;
-        regGrupaField = new JTextField(15);
-        panel.add(regGrupaField, gbc);
-
         gbc.gridx = 0;
         gbc.gridy++;
         panel.add(new JLabel("Username:"), gbc);
@@ -154,20 +121,33 @@ public class LoginRegisterUI extends JFrame {
         registerBtn.setForeground(Color.WHITE);
         registerBtn.setFocusPainted(false);
         registerBtn.addActionListener(e -> {
-            String nume = regNumeField.getText();
-            String prenume = regPrenumeField.getText();
-            String email = regEmailField.getText();
-            String grupa = regGrupaField.getText();
             String username = regUsernameField.getText();
             String password = new String(regPasswordField.getPassword());
             String userType = (String) regUserTypeBox.getSelectedItem();
 
+            if (username.trim().isEmpty() || password.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, 
+                    "Username and password are required.", 
+                    "Validation Error", 
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             if (DatabaseConnection.checkUsernameExists(username)) {
-                JOptionPane.showMessageDialog(this, "Username already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, 
+                    "Username already exists.", 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
             } else {
-                boolean success = DatabaseConnection.registerUser(nume, prenume, email, username, password, userType, grupa);
+                boolean success = DatabaseConnection.registerUser(username, password, userType);
                 if (success) {
-                    JOptionPane.showMessageDialog(this, "Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, 
+                        "Account created successfully!", 
+                        "Success", 
+                        JOptionPane.INFORMATION_MESSAGE);
+                    // Clear the fields after successful registration
+                    regUsernameField.setText("");
+                    regPasswordField.setText("");
                 }
             }
         });

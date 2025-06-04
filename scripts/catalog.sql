@@ -1,54 +1,58 @@
+INSERT INTO profesori (username, parola) VALUES ('prof1', 'parola1');
+INSERT INTO profesori (username, parola) VALUES ('prof2', 'parola2');
+INSERT INTO profesori (username, parola) VALUES ('prof3', 'parola3');
+INSERT INTO profesori (username, parola) VALUES ('prof4', 'parola4');
+INSERT INTO profesori (username, parola) VALUES ('prof5', 'parola5');
+INSERT INTO profesori (username, parola) VALUES ('prof6', 'parola6');
+INSERT INTO profesori (username, parola) VALUES ('prof7', 'parola7');
+INSERT INTO profesori (username, parola) VALUES ('prof8', 'parola8');
+INSERT INTO profesori (username, parola) VALUES ('prof9', 'parola9');
+INSERT INTO profesori (username, parola) VALUES ('prof10', 'parola10');
+
+INSERT INTO studenti (username, parola) VALUES ('stud1', 'pass1');
+INSERT INTO studenti (username, parola) VALUES ('stud2', 'pass2');
+INSERT INTO studenti (username, parola) VALUES ('stud3', 'pass3');
+INSERT INTO studenti (username, parola) VALUES ('stud4', 'pass4');
+INSERT INTO studenti (username, parola) VALUES ('stud5', 'pass5');
+
+INSERT INTO materii (nume_materie, id_profesor) VALUES ('Matematica', 1);
+INSERT INTO materii (nume_materie, id_profesor) VALUES ('Informatica', 2);
+INSERT INTO materii (nume_materie, id_profesor) VALUES ('Fizica', 3);
+INSERT INTO materii (nume_materie, id_profesor) VALUES ('Chimie', 4);
+INSERT INTO materii (nume_materie, id_profesor) VALUES ('Biologie', 5);
+INSERT INTO materii (nume_materie, id_profesor) VALUES ('Istorie', 6);
+INSERT INTO materii (nume_materie, id_profesor) VALUES ('Geografie', 7);
+INSERT INTO materii (nume_materie, id_profesor) VALUES ('Engleza', 8);
+INSERT INTO materii (nume_materie, id_profesor) VALUES ('Romana', 9);
+INSERT INTO materii (nume_materie, id_profesor) VALUES ('Sport', 10);
+
+DECLARE
+  v_id_student NUMBER := 1;
+  v_count NUMBER := 0;
 BEGIN
-  -- Populare profesori (10)
-  FOR i IN 1..10 LOOP
-    INSERT INTO profesori (id_profesor, nume, prenume, email, username, password)
-    VALUES (
-      i,
-      'NumeProf' || i,
-      'PrenumeProf' || i,
-      'prof' || i || '@univ.ro',
-      'profuser' || i,
-      'pass' || i
-    );
-  END LOOP;
+  FOR n IN (SELECT id_nota FROM nota ORDER BY id_nota) LOOP
+    UPDATE nota
+    SET id_student = v_id_student
+    WHERE id_nota = n.id_nota;
 
-  -- Populare materii (20) cu credite random intre 3 si 6
-  FOR i IN 1..20 LOOP
-    INSERT INTO materii (id_materie, nume_materie, id_profesor, credite)
-    VALUES (
-      i,
-      'Materie' || i,
-      MOD(i,10) + 1,  -- alocam profesor circular (1-10)
-      DBMS_RANDOM.VALUE(3,6)
-    );
+    v_count := v_count + 1;
+    IF v_count = 10 THEN
+      v_count := 0;
+      v_id_student := v_id_student + 1;
+    END IF;
   END LOOP;
-
-  -- Populare studenti (100)
-  FOR i IN 1..100 LOOP
-    INSERT INTO studenti (id_student, nume, prenume, grupa, email, username, password)
-    VALUES (
-      i,
-      'NumeStud' || i,
-      'PrenumeStud' || i,
-      'Grupa' || MOD(i,5)+1,
-      'student' || i || '@univ.ro',
-      'user' || i,
-      'pass' || i
-    );
-  END LOOP;
-
-  -- Populare note (aprox 500 note)
-  FOR i IN 1..500 LOOP
-    INSERT INTO note (id_nota, id_student, id_materie, valoare, data_nota)
-    VALUES (
-      i,
-      MOD(i,100) + 1,   -- id_student intre 1 si 100
-      MOD(i,20) + 1,    -- id_materie intre 1 si 20
-      ROUND(DBMS_RANDOM.VALUE(5,10),1),  -- nota intre 5.0 si 10.0
-      ADD_MONTHS(SYSDATE, -MOD(i,12))    -- data in ultimul an, distribuita pe luni
-    );
-  END LOOP;
-
-  COMMIT;
 END;
 /
+
+COMMIT;
+
+BEGIN
+  FOR n IN (SELECT id_nota FROM nota) LOOP
+    UPDATE nota
+    SET valoare_nota = ROUND(DBMS_RANDOM.VALUE(5, 10), 1)
+    WHERE id_nota = n.id_nota;
+  END LOOP;
+END;
+/
+
+COMMIT;
