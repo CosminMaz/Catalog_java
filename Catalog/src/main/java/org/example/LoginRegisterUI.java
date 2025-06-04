@@ -12,8 +12,6 @@ public class LoginRegisterUI extends JFrame {
 
     public LoginRegisterUI() {
         try {
-            System.out.println("Initializing LoginRegisterUI...");
-            
             setTitle("Login / Register");
             setSize(500, 500);
             setLocationRelativeTo(null);
@@ -24,13 +22,12 @@ public class LoginRegisterUI extends JFrame {
             JTabbedPane tabbedPane = new JTabbedPane();
             tabbedPane.add("Login", createLoginPanel());
             tabbedPane.add("Register", createRegisterPanel());
-            System.out.println("Tabbed pane created");
 
             add(tabbedPane, BorderLayout.CENTER);
 
             // Add Admin Panel button
             JButton adminButton = new JButton("Admin Panel");
-            adminButton.setBackground(new Color(108, 117, 125)); // Gray color
+            adminButton.setBackground(new Color(108, 117, 125));
             adminButton.setForeground(Color.WHITE);
             adminButton.setFocusPainted(false);
             adminButton.addActionListener(e -> {
@@ -105,7 +102,6 @@ public class LoginRegisterUI extends JFrame {
         JButton loginBtn = new JButton("Login");
         loginBtn.setBackground(new Color(33, 150, 243));
         loginBtn.setForeground(Color.WHITE);
-        loginBtn.setFocusPainted(false);
         loginBtn.addActionListener(e -> handleLogin());
         panel.add(loginBtn, gbc);
 

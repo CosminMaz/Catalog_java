@@ -12,26 +12,22 @@ import java.util.List;
 public class DatabaseConnection {
     // Updated connection details for Oracle XE
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    private static final String USER = "catalog";  // Usually uppercase for Oracle
-    private static final String PASSWORD = "user";  // Usually uppercase for Oracle
+    private static final String USER = "catalog";
+    private static final String PASSWORD = "user";
 
     public static Connection getConnection() throws SQLException {
         try {
-            // Make sure the Oracle driver is loaded
+            // Incarcam driver pt a fi siguri
             Class.forName("oracle.jdbc.driver.OracleDriver");
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, 
-                "Oracle JDBC Driver not found. Please check your dependencies.",
+                "Oracle JDBC Driver not found",
                 "Database Error",
                 JOptionPane.ERROR_MESSAGE);
             throw new SQLException("Oracle JDBC Driver not found", e);
         } catch (SQLException e) {
-            String errorMessage = "Database connection error: " + e.getMessage() + 
-                                "\nPlease check if:\n" +
-                                "1. Oracle Database is running\n" +
-                                "2. Username and password are correct\n" +
-                                "3. Database service is available";
+            String errorMessage = "Database connection error: " + e.getMessage();
             JOptionPane.showMessageDialog(null, 
                 errorMessage,
                 "Database Connection Error",
@@ -134,7 +130,7 @@ public class DatabaseConnection {
             
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1); // Return id_student or id_profesor
+                    return rs.getInt(1); // Return id_student sau id_profesor
                 }
             }
         } catch (SQLException e) {

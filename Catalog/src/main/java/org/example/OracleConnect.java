@@ -9,11 +9,10 @@ public class OracleConnect {
         String password = "user";
 
         try {
-            // Nu mai e necesar în Java 6+ dacă ai driverul în classpath
             Class.forName("oracle.jdbc.driver.OracleDriver");
 
             Connection conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexiune reușită!");
+            System.out.println("Conexiune reusita!");
 
             conn.close();
         } catch (Exception e) {

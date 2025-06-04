@@ -5,36 +5,33 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Application starting...");
         
         try {
-            // Set look and feel to system default
+            // Look and feel system
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            System.out.println("Look and Feel set successfully");
 
-            // Load Oracle JDBC Driver
+            // Incarcare JDBC Driver
             Class.forName("oracle.jdbc.driver.OracleDriver");
             System.out.println("JDBC Driver loaded successfully");
 
-            // Initialize database first
-            System.out.println("Starting database initialization...");
+            // Initializare baza de date
+            System.out.println("Starting database initialization");
             DatabaseInitializer.initializeDatabase();
             System.out.println("Database initialization completed");
 
             // Register cleanup on JVM shutdown
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                System.out.println("Performing database cleanup...");
+                System.out.println("Performing database cleanup");
                 DatabaseInitializer.cleanupDatabase();
             }));
-            System.out.println("Shutdown hook registered");
 
             // Start the UI in the EDT
-            System.out.println("Starting UI initialization...");
+            System.out.println("Starting UI initialization");
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        System.out.println("Creating LoginRegisterUI...");
+                        System.out.println("Creating LoginRegisterUI");
                         LoginRegisterUI frame = new LoginRegisterUI();
                         frame.setVisible(true);
                         System.out.println("LoginRegisterUI created and set visible");
