@@ -11,34 +11,56 @@ public class LoginRegisterUI extends JFrame {
     private JComboBox<String> userTypeBox;
 
     public LoginRegisterUI() {
-        setTitle("Login / Register");
-        setSize(500, 500);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        try {
+            System.out.println("Initializing LoginRegisterUI...");
+            
+            setTitle("Login / Register");
+            setSize(500, 500);
+            setLocationRelativeTo(null);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setLayout(new BorderLayout());
+            System.out.println("Basic frame properties set");
 
-        JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.add("Login", createLoginPanel());
-        tabbedPane.add("Register", createRegisterPanel());
+            JTabbedPane tabbedPane = new JTabbedPane();
+            tabbedPane.add("Login", createLoginPanel());
+            tabbedPane.add("Register", createRegisterPanel());
+            System.out.println("Tabbed pane created");
 
-        add(tabbedPane, BorderLayout.CENTER);
+            add(tabbedPane, BorderLayout.CENTER);
 
-        // Add Admin Panel button
-        JButton adminButton = new JButton("Admin Panel");
-        adminButton.setBackground(new Color(108, 117, 125)); // Gray color
-        adminButton.setForeground(Color.WHITE);
-        adminButton.setFocusPainted(false);
-        adminButton.addActionListener(e -> {
-            new AdminUI();
-            dispose();
-        });
+            // Add Admin Panel button
+            JButton adminButton = new JButton("Admin Panel");
+            adminButton.setBackground(new Color(108, 117, 125)); // Gray color
+            adminButton.setForeground(Color.WHITE);
+            adminButton.setFocusPainted(false);
+            adminButton.addActionListener(e -> {
+                new AdminUI();
+                dispose();
+            });
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttonPanel.add(adminButton);
-        add(buttonPanel, BorderLayout.SOUTH);
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            buttonPanel.add(adminButton);
+            add(buttonPanel, BorderLayout.SOUTH);
+            System.out.println("Admin button added");
 
-        getContentPane().setBackground(new Color(245, 245, 245));
-        setVisible(true);
+            getContentPane().setBackground(new Color(245, 245, 245));
+            
+            // Pack the frame to ensure proper sizing
+            pack();
+            // Center on screen
+            setLocationRelativeTo(null);
+            // Make visible at the end
+            setVisible(true);
+            
+            System.out.println("LoginRegisterUI initialization completed");
+        } catch (Exception e) {
+            System.err.println("Error in LoginRegisterUI constructor: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                "Error initializing UI: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private JPanel createLoginPanel() {

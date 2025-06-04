@@ -29,3 +29,7 @@ BEGIN
     SELECT materii_seq.NEXTVAL INTO :NEW.id_materie FROM dual;
 END;
 /
+
+COMMIT;
+
+EXIT;
