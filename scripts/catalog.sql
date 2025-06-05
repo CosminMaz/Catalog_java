@@ -36,17 +36,14 @@ DECLARE
     v_student_id NUMBER;
     v_materie_id NUMBER;
 BEGIN
-    -- For each student
     FOR student IN (SELECT id_student FROM studenti) LOOP
-        -- For each subject
         FOR materie IN (SELECT id_materie FROM materii) LOOP
-            -- Insert a grade
             INSERT INTO nota (id_materie, id_student, valoare_nota, data_nota)
             VALUES (
                 materie.id_materie,
                 student.id_student,
                 ROUND(DBMS_RANDOM.VALUE(5, 10), 2),
-                SYSDATE - ROUND(DBMS_RANDOM.VALUE(0, 180)) -- Random date in the last 6 months
+                SYSDATE - ROUND(DBMS_RANDOM.VALUE(0, 180))
             );
         END LOOP;
     END LOOP;

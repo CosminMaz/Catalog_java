@@ -1,4 +1,3 @@
--- Tabelul STUDENTI
 CREATE TABLE Studenti (
     id_student NUMBER PRIMARY KEY,
     username VARCHAR2(50),
@@ -7,7 +6,7 @@ CREATE TABLE Studenti (
 
 COMMIT;
 
--- Tabelul PROFESORI
+
 CREATE TABLE Profesori (
     id_profesor NUMBER PRIMARY KEY,
     username VARCHAR2(50),
@@ -16,7 +15,7 @@ CREATE TABLE Profesori (
 
 COMMIT;
 
--- Tabelul MATERII
+
 CREATE TABLE Materii (
     id_materie NUMBER PRIMARY KEY,
     nume_materie VARCHAR2(100),
@@ -25,7 +24,7 @@ CREATE TABLE Materii (
 
 COMMIT;
 
--- Tabelul NOTA
+
 CREATE TABLE Nota (
     id_nota NUMBER PRIMARY KEY,
     id_materie NUMBER,
@@ -36,7 +35,7 @@ CREATE TABLE Nota (
 
 COMMIT;
 
--- Verify table creation
+
 BEGIN
     FOR t IN (SELECT table_name 
               FROM user_tables 

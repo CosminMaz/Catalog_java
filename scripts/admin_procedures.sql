@@ -1,4 +1,3 @@
--- Procedure to add a new student
 CREATE OR REPLACE PROCEDURE add_student(
     p_username IN VARCHAR2,
     p_parola IN VARCHAR2
@@ -14,7 +13,7 @@ EXCEPTION
 END;
 /
 
--- Procedure to add a new professor
+
 CREATE OR REPLACE PROCEDURE add_professor(
     p_username IN VARCHAR2,
     p_parola IN VARCHAR2
@@ -30,19 +29,19 @@ EXCEPTION
 END;
 /
 
--- Procedure to add a new subject
+
 CREATE OR REPLACE PROCEDURE add_subject(
     p_nume_materie IN VARCHAR2,
     p_username_profesor IN VARCHAR2
 ) AS
     v_id_profesor NUMBER;
 BEGIN
-    -- Get professor ID
+    
     SELECT id_profesor INTO v_id_profesor
     FROM profesori
     WHERE username = p_username_profesor;
     
-    -- Insert new subject
+    
     INSERT INTO materii (nume_materie, id_profesor)
     VALUES (p_nume_materie, v_id_profesor);
     COMMIT;

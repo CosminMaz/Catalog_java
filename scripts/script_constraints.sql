@@ -1,4 +1,3 @@
--- Add foreign key constraints
 ALTER TABLE Materii
 ADD CONSTRAINT fk_materii_profesor
 FOREIGN KEY (id_profesor) REFERENCES Profesori(id_profesor);
